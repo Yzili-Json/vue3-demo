@@ -1,5 +1,5 @@
-<template>
-    <div class="tag-left">
+<template >
+    <div class="tag-left" >
         <div class="tabs-menu">
             <el-tabs
                 v-model="tagIndex"
@@ -10,7 +10,7 @@
                 <el-tab-pane v-for="item in tags" :key="item.name" :name="item.path" :closable="item.name != '首页'">
                     <template #label>
                         <el-button size="default" :type="item.type">
-                            <el-icon v-if="item.icon" class="tag-icon">
+                            <el-icon v-if="item.icon && globalState.tagIconState" class="tag-icon">
                                 <component :is="item.icon" />
                             </el-icon>
                             <span>
@@ -148,6 +148,8 @@
             } 
         }
     }
+    // 状态
+    const globalState = store.state.globalState
 </script>
 <style lang="scss">
 .tag-left{

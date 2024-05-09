@@ -1,9 +1,9 @@
 <template>
-    <el-breadcrumb :separator-icon="ArrowRight">
+    <el-breadcrumb :separator-icon="ArrowRight" v-if="globalState.breadcrumbState">
         <!-- 固定一个首页面包屑 -->
         <el-breadcrumb-item to="/" v-if="breadTitle !== '首页'">
             <div class="breadcrumb-list">
-                <el-icon  >
+                <el-icon  v-if="globalState.breadcrumbIconState">
                     <HomeFilled />
                 </el-icon>
                 <span>首页</span>
@@ -16,7 +16,7 @@
                 :to="item.path"
             >
             <div class="breadcrumb-list">
-                <el-icon v-if="item.meta.icon">
+                <el-icon v-if="item.meta.icon && globalState.breadcrumbIconState">
                     <component :is="item.meta.icon"  />
                 </el-icon>
                 <span>
@@ -33,7 +33,11 @@
     import { ArrowRight } from '@element-plus/icons-vue'
     import { ref , watch, onMounted} from 'vue'
     import { useRoute } from 'vue-router';
-    const route = useRoute()
+    import { useStore } from 'vuex';
+
+    const route = useRoute();
+    const store = useStore();
+    const globalState = store.state.globalState;
     // 面包屑
     const breadList = ref([] as any[]);
     const breadTitle = ref()

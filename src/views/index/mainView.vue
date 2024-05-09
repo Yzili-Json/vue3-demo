@@ -1,7 +1,7 @@
 <template>
 <div class="w100 h100 main-view">
     <!-- 显示导航页 -->
-    <div class="breadcrumb-box">
+    <div class="breadcrumb-box" v-if="globalState.tagState">
         <TagLabel></TagLabel>
     </div>
     <div class="main-router-box animation">
@@ -11,7 +11,11 @@
             </transition>
         </router-view>
     </div>
-    <el-footer class="el-footer">@2024 Json Ye</el-footer>
+    <el-footer class="el-footer" v-if="globalState.footerState">
+        <div class="footer-box">
+            @2024 Json Ye
+        </div>
+    </el-footer>
 </div>
 </template>
 
@@ -20,10 +24,11 @@ import TagLabel from '@/components/TagLabel.vue';
 import { ref } from 'vue'
 import { useRouter,useRoute } from 'vue-router';
 import { get } from '../../utils/api'
-
+import { useStore } from 'vuex'
 let router = useRouter();
 let route = useRoute();
-
+const store = useStore();
+const globalState = store.state.globalState
 let transitionName =ref();
 router.beforeEach((to:any,from:any)=>{
     if(to.meta.title != from.meta.title){
@@ -35,7 +40,7 @@ router.beforeEach((to:any,from:any)=>{
 </script>
 <style lang="scss" scoped>
     .breadcrumb-box{
-        padding: 10px;
+        padding: 0px 10px;
         // border-bottom: var(--el-border);
         background: #fff;
         display: flex;
@@ -43,7 +48,8 @@ router.beforeEach((to:any,from:any)=>{
         align-items: center;
     }
     .main-router-box{
-        height: calc(100% - 120px);
+        // height: calc(100% - 70px);
+        flex: 1;
         overflow: auto;
     }
     .el-footer{
@@ -51,9 +57,18 @@ router.beforeEach((to:any,from:any)=>{
         justify-content: center;
         align-items: center;
         background: #fff;
+        height: auto;
+        .footer-box{
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
     .main-view{
         overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
     }
     .animation {
         display: flex;

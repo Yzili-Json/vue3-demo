@@ -9,8 +9,16 @@ export default createStore ({
         state:{
                 name:'我叫白小飞', 
                 themeColor:'',
-                // 菜单栏状态
+                // 侧边菜单栏状态
                 isCollapse:false,
+                // 全局状态 as声明对象类型
+                globalState:{
+                        breadcrumbState:true,
+                        breadcrumbIconState:true,
+                        tagState:true,
+                        tagIconState:true,
+                        footerState:true,
+                } as {[key:string]:boolean},
                 // 锁屏状态
                 lockForm:{
                         isLcokView:false,
@@ -43,6 +51,10 @@ export default createStore ({
                 },
                 getTagList(state,newVal){
                         state.tagList = newVal
+                },
+                getGlobalState(state,newVal){
+                        state.globalState[newVal.key] = newVal.value
                 }
+
         }
 })

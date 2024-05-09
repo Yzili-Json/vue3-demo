@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import NProgress from "@/config/nprogress";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,5 +69,20 @@ const router = createRouter({
     }
   ]
 })
-
+// 路由拦截
+router.beforeEach((to,from,next)=>{
+    // console.log('路由拦截');
+    NProgress.start();
+    next();
+})
+// 路由跳转结束
+router.afterEach(()=>{
+  NProgress.done();
+  // console.log('路由跳转结束')
+})
+// 路由跳转错误
+router.onError((error)=>{
+  NProgress.done();
+  // console.log('路由跳转错误',error)
+})
 export default router

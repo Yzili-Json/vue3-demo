@@ -22,6 +22,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0px 30px;
         .user{
             min-width: 120px;
             display: flex;

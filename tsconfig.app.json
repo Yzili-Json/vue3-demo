@@ -6,7 +6,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue", "src/stores/counter.ts", "src/utils/axios.ts","src/utils/api.ts"
-  ],
+, "src/config/nprogress.ts"  ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
